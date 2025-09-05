@@ -142,34 +142,12 @@ print(tabla)
 
 x_fit_n =  np.linspace(np.min(tiempos2), np.max(tiempos2), len(tiempos2), endpoint = True)
 
-plt.plot(tiempos2, voltajes1 - lineal(x_fit_n, *popt_0), ".", color = 'darkslategray')
-plt.xlim(0.1870)
+plt.plot(tiempos2, voltajes1 - lineal(x_fit_n, *popt_0), ".", markersize=2, color = 'darkslategray')
+
+plt.xlabel('tiempo [s]')
+plt.ylabel('voltaje [V]')
+
+plt.xlim(0.1868)
 plt.show()
 
-
-
-
-
-
-
-
-
-
-
-#%% Calculo la pendiente de la recta (potencia vs corriente)
-
-# uso el promedio de las mediciones para cada corriente fija
-
-corrientes = np.array([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]) * (10**(-4)) #ampere
-
-potencias = []
-
-df = pd.read_csv("../medicion_potencia.csv")
-
-for i in range(21):
-    columna_n = df.iloc[:, i].to_numpy()
-    potencia = np.mean(columna_n)
-    potencias.append(potencia)
-
-    
     
