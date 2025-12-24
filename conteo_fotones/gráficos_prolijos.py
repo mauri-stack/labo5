@@ -136,9 +136,9 @@ def analisis_rapido(n, ruta, h, dis, pro, i_graficado,m_max, graficar = True, Po
             axs.set_ylabel('Amplitud [mV]')
     
             #axs.set_yticks([])        # oculta los ticks
-            axs.set_yticklabels([])   # oculta los textos (redundante pero seguro)
-            axs.tick_params(axis='x', labelrotation=180)
-            axs.xaxis.label.set_rotation(180)
+            #axs.set_yticklabels([])   # oculta los textos (redundante pero seguro)
+            #axs.tick_params(axis='x', labelrotation=180)
+            #axs.xaxis.label.set_rotation(180)
     
             # axs[0].plot(tiempos1_g, señal, label='Señal', color = 'indianred')
             # axs[0].plot(tiempos1_g[peaks], señal[peaks], 'ro', label='Picos detectados')
@@ -283,8 +283,8 @@ def kolmogorov_poisson_montecarlo(data, B=5000, seed=None, graficar = False):
         ax.hist(M_sim, density=True, bins= 'auto', histtype='barstacked', alpha=0.7, color='teal', edgecolor='gray')
         ax.axvline(M_crit, linestyle="--", color = "darkviolet" , label = "M_crítico")
         ax.axvline(M_real, linestyle="--", color = "firebrick", label = "M_medido")
-        ax.set_title('Distribución de M - H0 Verdadera')
-        ax.set_xlabel('Valor v.a.')
+        #ax.set_title('Distribución de M - H0 Verdadera')
+        ax.set_xlabel('M')
         ax.set_ylabel('Densidad de probabilidad')
         plt.legend()
         plt.show()
@@ -383,8 +383,8 @@ def kolmogorov_bose_einstein_montecarlo(data, B=5000, seed=None, graficar = Fals
         ax.hist(M_sim, density=True, bins= 'auto', histtype='barstacked', alpha=0.7, color='teal', edgecolor='gray')
         ax.axvline(M_crit, linestyle="--", color = "darkviolet" , label = "M_crítico")
         ax.axvline(M_real, linestyle="--", color = "firebrick", label = "M_medido")
-        ax.set_title('Distribución de M - H0 Verdadera')
-        ax.set_xlabel('Valor v.a.')
+        #ax.set_title('Distribución de M - H0 Verdadera')
+        ax.set_xlabel('M')
         ax.set_ylabel('Densidad de probabilidad')
         plt.legend()
         plt.show()
@@ -432,7 +432,7 @@ def Ajustar_poisson(numero_de_picos, info = False, test = False, png = False, re
     
     
     axs.hist(numero_de_picos, density=True, bins=bins,
-            color='darkcyan', edgecolor='slateblue', align='left')
+            color='darksalmon', edgecolor='indianred', align='left')
     axs.set_xlabel('Cuentas por ventana K')
     axs.set_ylabel('Frecuencia')
     axs.grid(alpha=0.3)
@@ -463,7 +463,7 @@ def Ajustar_poisson(numero_de_picos, info = False, test = False, png = False, re
     # --- Curva de Poisson discreta ---
     k_vals = np.arange(vals.min(), vals.max()+1)
     pmf_vals = poisson.pmf(k_vals, lam)
-    plt.plot(k_vals, pmf_vals, 'o--', color='mediumblue', label="Poisson λ MLE")
+    plt.plot(k_vals, pmf_vals, 'o--', color='tomato', label="Poisson λ MLE")
     
 
     #plt.scatter(k_vals, pmf_vals, color='red', zorder=10, label=f"λ ={lam:.2f} ± {lam_err:.2f}")
@@ -527,7 +527,7 @@ def Ajustar_Bose_Einstein(numero_de_picos, info = False, test = False, returnn =
     
     
     axs.hist(numero_de_picos, density=True, bins=bins,
-            color='darkcyan', edgecolor='slateblue', align='left')
+            color='darksalmon', edgecolor='indianred', align='left')
     axs.set_xlabel('Cuentas por ventana K')
     axs.grid(alpha = 0.4)
     axs.set_ylabel('Frecuencia')
@@ -572,7 +572,7 @@ def Ajustar_Bose_Einstein(numero_de_picos, info = False, test = False, returnn =
     # pmf según scipy, ajustada para empezar en 0
     pmf_vals = geom.pmf(k_vals, p_hat, loc=-1)
     
-    plt.plot(k_vals, pmf_vals, 'o--', color='mediumblue', label="Bose-Einstein $\eta$ MLE")
+    plt.plot(k_vals, pmf_vals, 'o--', color='tomato', label="Bose-Einstein $\eta$ MLE")
     
 
 
@@ -614,7 +614,7 @@ def Ajustar_Bose_Einstein(numero_de_picos, info = False, test = False, returnn =
 
 
 p_180 = analisis_rapido(n = 1001, ruta ='/Users/Mauri/Desktop/Labo 5/Conteo de fotones/7-11/r = 50Ohm (Poisson)/segundas mil', 
-         h = 0.005, dis = 2, pro = 0, i_graficado = 17, m_max = 140,
+         h = 0.005, dis = 2, pro = 0, i_graficado = 47, m_max = 140,
          graficar = True, Poisson = True, png = True)
 
 #Ajustar_poisson(p_180, test = True, info = False, png = True)
@@ -661,9 +661,6 @@ Ajustar_poisson(p_180, test = True, info = True, png = True)
 
 
 
-
-
-
 #%%------ Láser Bose-Einstein -------
     
 
@@ -700,13 +697,19 @@ Ajustar_poisson(bose_3, test = True, info = True)
 #%% Led Poisson solo -------
 
 led_p2 = analisis_rapido(n = 701, ruta ='/Users/Mauri/Desktop/Labo 5/Conteo de fotones/28-11/Led/Poisson/2.6V', 
-         h = -0.0005, dis = 7, pro = 0, i_graficado = 7, m_max = 100,
+         h = -0.0005, dis = 7, pro = 0, i_graficado = 7, m_max = 10,
          graficar = False, Poisson = True)
 
-lam_2, lam_err_2, bins_2, cuentas_2, err_cuentas_2, bin_ajuste_2, cuentas_ajuste_2 = Ajustar_poisson(led_p2, test = True, info = False, returnn = True, png = True)
+lam_2, lam_err_2, bins_2, cuentas_2, err_cuentas_2, bin_ajuste_2, cuentas_ajuste_2 = Ajustar_poisson(led_p2, test = True, info = True, returnn = True, png = True)
+
+#da p-valor 0,71 si descarto las mediciones de 10 cuentas o más, tomo ese para reportar...
 
 
 
+#%%
+Ajustar_Bose_Einstein(led_p2, info = False, test = True, returnn = False, png = False)
+
+    
 
 
 
@@ -983,6 +986,14 @@ kolmogorov_bose_einstein_montecarlo(led_b3, B=5000, seed=None, graficar = True)
 Ajustar_Bose_Einstein(led_b3_god, info = True, test = True)
 
 
+#checkeo de que no sea poissoniana
+kolmogorov_poisson_montecarlo(led_b3_god, B=5000, seed=None, graficar = True)
+
+Ajustar_poisson(led_b3_god, test = True, info = True)
+
+
+
+
 #%%
 
 k_vals, pmf_vals, bin_centers, density_counts, errors_density = Ajustar_Bose_Einstein(led_b3_god, info = True, test = True, returnn = True)
@@ -1034,7 +1045,7 @@ axs.set_ylim(0,0.72)
 axs.set_ylabel('Frecuencia')
 
 
-axs.axvspan(15, 50, color='palevioletred', alpha=0.3, label='Mediciones descartadas')
+axs.axvspan(15, 50, color='palevioletred', alpha=0.2, label='Mediciones descartadas')
 
 
 
